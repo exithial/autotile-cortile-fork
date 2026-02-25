@@ -1,63 +1,54 @@
-🎉 ¡Nueva Versión de Cortile 2.1.0! 🎉
+🎉 **Cortile v2.7.0 - Proporciones Inteligentes para Autotile** 🎉
 
-## 🚀 ¿Qué hay de nuevo?
+¡Hola usuarios de Cortile! 
 
-¡Cortile ahora es más inteligente que nunca! Hemos añadido una funcionalidad revolucionaria para pantallas ultrawide que cambiará tu forma de trabajar.
+Estamos emocionados de presentar la versión 2.7.0, que trae mejoras significativas a la experiencia de autotile. Esta actualización hace que el manejo de ventanas en pantallas ultrawide sea más intuitivo y poderoso que nunca.
 
-### ✨ **Novedad Destacada: Layout Autotile**
-- **Pantallas ultrawide detectadas automáticamente** 🖥️➡️📊
-- **Distribución inteligente en columnas** que se adapta al número de ventanas
-- **Cambio automático** entre layouts según el ancho de pantalla
-- **Ajuste manual de columnas** con atajos de teclado
+## ✨ **Novedades Destacadas**
 
-### 🎯 **Mejoras Principales**
-- **Nuevo layout por defecto**: Autotile para máxima productividad
-- **Atajos intuitivos**: 
-  - `Control+Shift+A`: Cambia entre autotile y vertical-left
-  - `Control+Shift+* (teclado numérico)`: Aumenta columnas
-  - `Control+Shift+/ (teclado numérico)`: Disminuye columnas
-- **Configuración flexible**: Ajusta umbrales y máximo de columnas
+### 🔧 **Ajuste de Proporciones por Columna**
+Ahora puedes ajustar el tamaño de columnas individuales en el layout autotile:
+- **Ctrl+Shift+KP_3**: Agrandar columna activa
+- **Ctrl+Shift+KP_1**: Reducir columna activa
+- Las columnas centrales se expanden hacia **ambos lados** (¡no más interfaz desordenada!)
+- Columnas laterales ajustan del vecino inmediato
 
-### 🔧 **Para Usuarios Existentes**
-- **Actualización automática** con nuestro script de instalación
-- **Configuración preservada** con backup automático
-- **Servicio systemd** mejorado y optimizado
+### 🔄 **Reset Automático Inteligente**
+- Las proporciones se resetean automáticamente al activar/desactivar autotile
+- También se resetean al activar/desactivar el tiling completo
+- Siempre vuelves a una distribución equilibrada
 
-### 🎨 **Detalles Técnicos**
-- **Detección inteligente**: Cambia a autotile en pantallas >2560px
-- **Distribución óptima**: Columnas dinámicas según ventanas abiertas
-- **Icono actualizado**: Nuevo icono en systray para autotile
-- **Compatibilidad total**: Funciona con todos los window managers soportados
+### 🎯 **Mejoras de Usabilidad**
+- Distribución 50%/50% para cambios en columnas centrales
+- Proporciones mínimas respetadas para evitar columnas demasiado pequeñas
+- Cálculos precisos sin errores de redondeo
 
-## 📋 ¿Cómo Actualizar?
+## 🚀 **¿Cómo Usarlo?**
 
-1. **Ejecuta el script de actualización**:
-   ```bash
-   ./update-cortile.sh
-   ```
+1. **Activa autotile** con `Ctrl+Shift+A`
+2. **Selecciona una ventana** en la columna que quieras ajustar
+3. **Usa los atajos**:
+   - `Ctrl+Shift+KP_3`: Agrandar columna activa
+   - `Ctrl+Shift+KP_1`: Reducir columna activa
+4. **Para resetear**: Activa/desactiva autotile o el tiling completo
 
-2. **Opcional - Instalación system-wide**:
-   ```bash
-   sudo ./update-cortile.sh --install-system-wide
-   ```
+## 🛠 **Detalles Técnicos**
 
-3. **¡Listo!** Cortile se reiniciará automáticamente con las nuevas funcionalidades.
+Esta versión incluye:
+- Nuevo sistema de proporciones por columna
+- Algoritmo inteligente de distribución de espacio
+- Reset automático en múltiples escenarios
+- Código optimizado y mantenible
 
-## 🎮 ¿Cómo Usar Autotile?
+## 📋 **Compatibilidad**
 
-1. **En pantallas ultrawide**: Cortile detectará automáticamente y usará autotile
-2. **En pantallas normales**: Usa `Control+Shift+A` para activar autotile manualmente
-3. **Ajusta columnas**: Con los atajos de teclado numérico
-4. **Vuelve al modo clásico**: `Control+Shift+A` nuevamente
-
-## 🐛 ¿Problemas o Sugerencias?
-
-- **Reporta issues**: En nuestro repositorio de GitHub
-- **Consulta la documentación**: README.md actualizado
-- **Únete a la comunidad**: Comparte tus experiencias
+- Totalmente compatible con versiones anteriores
+- Mismas configuraciones y atajos
+- Sin cambios en la API pública
 
 ---
 
-**Cortile 2.1.0** - Haciendo el tiling más inteligente para pantallas modernas 🚀
+**¡Gracias por usar Cortile!** 🎯
 
-*"Productividad adaptada a tu pantalla"*
+*El equipo de desarrollo de Cortile Fork*
+*Versión 2.7.0 - 25 de Febrero de 2026*

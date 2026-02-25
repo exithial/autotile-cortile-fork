@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2026-02-25
+
+### Added
+- **Proporciones por columna en autotile**: Nueva funcionalidad para ajustar proporciones individuales de columnas
+- **Atajos de proporción**: Ctrl+Shift+KP_3 (increase) y Ctrl+Shift+KP_1 (decrease) ahora funcionan en autotile
+- **Reset automático**: Las proporciones se resetean al activar/desactivar autotile o tiling
+- **Distribución equilibrada**: Columnas centrales se expanden hacia ambos lados, no solo hacia uno
+
+### Changed
+- **Algoritmo de distribución**: Columnas ajustan espacio de vecinos de manera inteligente
+- **Reset de layout**: Mejorado el reset de proporciones al cambiar layouts
+
+### Fixed
+- **Interfaz desordenada**: Corregido problema donde columnas centrales solo se expandían hacia un lado
+- **Consistencia**: Asegurado que todas las columnas mantengan proporciones válidas
+
+### Technical Details
+- **Nuevos métodos**: `ResetColumnProportions()`, `adjustActiveColumnProportion()`, `normalizeColumnProportions()`
+- **Campo nuevo**: `ColumnProps []float64` en `AutotileLayout` para proporciones por columna
+- **Algoritmo mejorado**: Distribución 50%/50% para columnas centrales entre vecinos izquierdo/derecho
+- **Archivos actualizados**:
+  - `layout/autotile.go`: Implementación completa de proporciones por columna
+  - `input/action.go`: Reset automático en `EnableTiling()` y `AutotileLayoutAction()`
+
 ## [2.6.0] - 2026-02-25
 
 ### Added

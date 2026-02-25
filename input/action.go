@@ -13,6 +13,7 @@ import (
 	"github.com/leukipp/cortile/v2/common"
 	"github.com/leukipp/cortile/v2/desktop"
 	"github.com/leukipp/cortile/v2/store"
+	"github.com/leukipp/cortile/v2/layout"
 	"github.com/leukipp/cortile/v2/ui"
 
 	log "github.com/sirupsen/logrus"
@@ -159,6 +160,14 @@ func EnableTiling(tr *desktop.Tracker, ws *desktop.Workspace) bool {
 	ws.EnableTiling()
 	tr.Update()
 	tr.Tile(ws)
+
+	// Reset column proportions if autotile layout is active
+	if ws.ActiveLayout().GetName() == "autotile" {
+		if autotileLayout, ok := ws.ActiveLayout().(*layout.AutotileLayout); ok {
+			autotileLayout.ResetColumnProportions()
+			tr.Tile(ws) // Re-tile with reset proportions
+		}
+	}
 
 	ui.ShowLayout(ws)
 	ui.UpdateIcon(ws)
@@ -636,6 +645,11 @@ func AutotileLayoutAction(tr *desktop.Tracker, ws *desktop.Workspace) bool {
 	for i, l := range ws.Layouts {
 		if l.GetName() == "autotile" {
 			ws.SetLayout(uint(i))
+			// Reset column proportions when switching to autotile
+			if autotileLayout, ok := l.(*layout.AutotileLayout); ok {
+				autotileLayout.ResetColumnProportions()
+			}
+			break
 		}
 	}
 	tr.Tile(ws)
