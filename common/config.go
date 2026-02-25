@@ -30,6 +30,9 @@ type Configuration struct {
 	WindowGapSize     int               `toml:"window_gap_size"`     // Gap size between windows
 	WindowFocusDelay  int               `toml:"window_focus_delay"`  // Window focus delay when hovered
 	WindowDecoration  bool              `toml:"window_decoration"`   // Show window decorations
+	UltrawideThreshold int               `toml:"ultrawide_threshold"` // Screen width to trigger autotile
+	AutotileColumnsMax int               `toml:"autotile_columns_max"` // Maximum columns for autotile
+	AutotileColumnsDefault int           `toml:"autotile_columns_default"` // Default columns for autotile
 	ProportionStep    float64           `toml:"proportion_step"`     // Master-slave area step size proportion
 	ProportionMin     float64           `toml:"proportion_min"`      // Window size minimum proportion
 	EdgeMargin        []int             `toml:"edge_margin"`         // Margin values of tiling area

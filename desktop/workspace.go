@@ -77,6 +77,7 @@ func CreateLayouts(loc store.Location) []Layout {
 		layout.CreateVerticalRightLayout(loc),
 		layout.CreateHorizontalTopLayout(loc),
 		layout.CreateHorizontalBottomLayout(loc),
+		layout.CreateAutotileLayout(loc),
 		layout.CreateMaximizedLayout(loc),
 		layout.CreateFullscreenLayout(loc),
 	}

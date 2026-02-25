@@ -1,4 +1,4 @@
-# Cortile
+# Cortile (Fork with Autotile)
 ![build](https://img.shields.io/github/actions/workflow/status/leukipp/cortile/release.yaml?style=flat-square)
 ![date](https://img.shields.io/github/release-date/leukipp/cortile?style=flat-square)
 ![downloads](https://img.shields.io/github/downloads/leukipp/cortile/total?style=flat-square)
@@ -14,6 +14,21 @@ Simply keep your current window manager and install **cortile on top** of it.
 Once enabled, the tiling manager will handle _resizing_ and _positioning_ of _existing_ and _new_ windows.
 <br clear="left"/>
 
+**⚠️ IMPORTANT NOTE: This is an unofficial fork**
+
+This repository is a **personal fork** of the original [Cortile](https://github.com/leukipp/cortile) project created by [leukipp](https://github.com/leukipp).
+
+**All credit and recognition** for the base project belongs to the original creator.
+This fork only adds additional functionality (autotile layout) for personal use.
+
+**Additional features in this fork:**
+- Autotile layout for ultrawide displays
+- Automatic ultrawide screen detection
+- Dynamic column management
+- Keyboard shortcuts specific to autotile
+
+**For the official project, visit:** [github.com/leukipp/cortile](https://github.com/leukipp/cortile)
+
 ## Features [![features](https://img.shields.io/github/stars/leukipp/cortile?style=flat-square)](#features-)
 - [x] Workspace based tiling.
 - [x] Auto detection of panels.
@@ -23,6 +38,7 @@ Once enabled, the tiling manager will handle _resizing_ and _positioning_ of _ex
 - [x] Custom addons via python bindings.
 - [x] Keyboard, hot corner and systray bindings.
 - [x] Vertical, horizontal, maximized and fullscreen mode.
+- [x] Autotile layout for ultrawide displays.
 - [x] Remember layout proportions.
 - [x] Floating and sticky windows.
 - [x] Drag & drop window swap.
@@ -67,13 +83,13 @@ systemctl --user enable cortile.service
 # start systemd service
 systemctl --user start cortile.service
 ```
-
 ### Usage
 The layouts are based on the master-slave concept, where one side of the screen is considered to be the master area and the other side is considered to be the slave area:
 - `vertical-right:` split the screen vertically, master area on the right.
 - `vertical-left:` split the screen vertically, master area on the left.
 - `horizontal-top:` split the screen horizontally, master area on the top.
 - `horizontal-bottom:` split the screen horizontally, master area on the bottom.
+- `autotile:` dynamic column-based layout for ultrawide displays.
 - `maximized:` single window that fills the entire tiling area.
 - `fullscreen:` single window that fills the entire screen.
 
@@ -106,12 +122,15 @@ If some of them are already in use by your system, update the default values in 
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Right</kbd>       | Activate vertical-right layout                |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Up</kbd>          | Activate horizontal-top layout                |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Down</kbd>        | Activate horizontal-bottom layout             |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>           | Toggle between autotile and vertical-left     |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Space</kbd>       | Activate maximized layout                     |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Return</kbd>      | Activate fullscreen layout                    |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Plus</kbd>        | Increase number of maximum slave windows      |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Minus</kbd>       | Decrease number of maximum slave windows      |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>KP_Add</kbd>      | Increase number of master windows             |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>KP_Subtract</kbd> | Decrease number of master windows             |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>KP_Multiply</kbd> | Increase number of columns in autotile        |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>KP_Divide</kbd>   | Decrease number of columns in autotile        |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>KP_2</kbd>        | Move focus to the next window                 |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>KP_8</kbd>        | Move focus to the previous window             |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>KP_9</kbd>        | Move the active window to the next screen     |
@@ -272,6 +291,26 @@ Windows:
 - Automatic panel detection may not work under some window managers, use the `edge_margin` property to adjust for additional margins.
 - Particularly in GNOME based desktop environments, window displacements or resizing issues may occur.
 - Sticky windows may cause unwanted layout modifications during workspace changes.
+
+## Fork Information
+
+**This fork maintains:**
+- All original Cortile functionality
+- Full compatibility with the base project
+- Same quality and security standards
+
+**Adds:**
+- Autotile layout for ultrawide displays
+- Additional configuration in `config.toml`
+- Complete update script (`update-cortile.sh`)
+- Updated documentation
+
+**Original credits:**
+This project is based on [Cortile](https://github.com/leukipp/cortile) created by [leukipp](https://github.com/leukipp).
+All base architecture, core implementation and design belong to the original author.
+
+**License:**
+This fork maintains the same MIT license as the original project.
 - Toggling window decoration may cause unwanted layout modifications.
 
 Systray:

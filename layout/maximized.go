@@ -64,3 +64,15 @@ func (l *MaximizedLayout) GetManager() *store.Manager {
 func (l *MaximizedLayout) GetName() string {
 	return l.Name
 }
+
+func (l *MaximizedLayout) IncreaseColumn() {
+	// No-op for maximized layout
+}
+
+func (l *MaximizedLayout) DecreaseColumn() {
+	// No-op for maximized layout
+}
+
+func (l *MaximizedLayout) ResetColumns() {
+	// No-op for maximized layout
+}

@@ -234,3 +234,15 @@ func (l *VerticalLayout) GetManager() *store.Manager {
 func (l *VerticalLayout) GetName() string {
 	return l.Name
 }
+
+func (l *VerticalLayout) IncreaseColumn() {
+	// No-op for vertical layout
+}
+
+func (l *VerticalLayout) DecreaseColumn() {
+	// No-op for vertical layout
+}
+
+func (l *VerticalLayout) ResetColumns() {
+	// No-op for vertical layout
+}

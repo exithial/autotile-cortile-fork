@@ -65,6 +65,10 @@ func ExecuteAction(action string, tr *desktop.Tracker, ws *desktop.Workspace) bo
 		success = HorizontalTopLayout(tr, ws)
 	case "layout_horizontal_bottom":
 		success = HorizontalBottomLayout(tr, ws)
+	case "layout_autotile":
+		success = AutotileLayoutAction(tr, ws)
+	case "autotile_toggle":
+		success = ToggleAutotile(tr, ws)
 	case "layout_maximized":
 		success = MaximizedLayout(tr, ws)
 	case "layout_fullscreen":
@@ -77,7 +81,12 @@ func ExecuteAction(action string, tr *desktop.Tracker, ws *desktop.Workspace) bo
 		success = IncreaseMaster(tr, ws)
 	case "master_decrease":
 		success = DecreaseMaster(tr, ws)
+	case "column_increase":
+		success = IncreaseColumn(tr, ws)
+	case "column_decrease":
+		success = DecreaseColumn(tr, ws)
 	case "window_next":
+		success = NextWindow(tr, ws)
 		success = NextWindow(tr, ws)
 	case "window_previous":
 		success = PreviousWindow(tr, ws)
@@ -278,6 +287,8 @@ func VerticalLeftLayout(tr *desktop.Tracker, ws *desktop.Workspace) bool {
 			ws.SetLayout(uint(i))
 		}
 	}
+	// Reset columns when switching to non-autotile layout
+	ws.ActiveLayout().ResetColumns()
 	tr.Tile(ws)
 
 	ui.ShowLayout(ws)
@@ -615,5 +626,77 @@ func executeCallbacks(action string, desktop uint, screen uint) {
 
 	for _, fun := range executeCallbacksFun {
 		fun(action, desktop, screen)
+	}
+}
+
+func AutotileLayoutAction(tr *desktop.Tracker, ws *desktop.Workspace) bool {
+	if ws.TilingDisabled() {
+		return false
+	}
+	for i, l := range ws.Layouts {
+		if l.GetName() == "autotile" {
+			ws.SetLayout(uint(i))
+		}
+	}
+	tr.Tile(ws)
+
+	ui.ShowLayout(ws)
+	ui.UpdateIcon(ws)
+
+	return true
+}
+
+func IncreaseColumn(tr *desktop.Tracker, ws *desktop.Workspace) bool {
+	if ws.TilingDisabled() {
+		return false
+	}
+	// Switch to autotile layout if not already in it
+	currentLayout := ws.ActiveLayout().GetName()
+	if currentLayout != "autotile" {
+		AutotileLayoutAction(tr, ws)
+	}
+	// Now increase columns
+	ws.ActiveLayout().IncreaseColumn()
+	tr.Tile(ws)
+
+	// Show notification for column change
+	ui.ShowLayout(ws)
+	ui.UpdateIcon(ws)
+
+	return true
+}
+
+func DecreaseColumn(tr *desktop.Tracker, ws *desktop.Workspace) bool {
+	if ws.TilingDisabled() {
+		return false
+	}
+	// Switch to autotile layout if not already in it
+	currentLayout := ws.ActiveLayout().GetName()
+	if currentLayout != "autotile" {
+		AutotileLayoutAction(tr, ws)
+	}
+	// Now decrease columns
+	ws.ActiveLayout().DecreaseColumn()
+	tr.Tile(ws)
+
+	// Show notification for column change
+	ui.ShowLayout(ws)
+	ui.UpdateIcon(ws)
+
+	return true
+}
+
+func ToggleAutotile(tr *desktop.Tracker, ws *desktop.Workspace) bool {
+	if ws.TilingDisabled() {
+		return false
+	}
+
+	currentLayout := ws.ActiveLayout().GetName()
+	if currentLayout == "autotile" {
+		// Switch to vertical-left if currently in autotile
+		return VerticalLeftLayout(tr, ws)
+	} else {
+		// Switch to autotile if in another layout
+		return AutotileLayoutAction(tr, ws)
 	}
 }

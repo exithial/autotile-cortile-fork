@@ -1,0 +1,63 @@
+🎉 ¡Nueva Versión de Cortile 2.1.0! 🎉
+
+## 🚀 ¿Qué hay de nuevo?
+
+¡Cortile ahora es más inteligente que nunca! Hemos añadido una funcionalidad revolucionaria para pantallas ultrawide que cambiará tu forma de trabajar.
+
+### ✨ **Novedad Destacada: Layout Autotile**
+- **Pantallas ultrawide detectadas automáticamente** 🖥️➡️📊
+- **Distribución inteligente en columnas** que se adapta al número de ventanas
+- **Cambio automático** entre layouts según el ancho de pantalla
+- **Ajuste manual de columnas** con atajos de teclado
+
+### 🎯 **Mejoras Principales**
+- **Nuevo layout por defecto**: Autotile para máxima productividad
+- **Atajos intuitivos**: 
+  - `Control+Shift+A`: Cambia entre autotile y vertical-left
+  - `Control+Shift+* (teclado numérico)`: Aumenta columnas
+  - `Control+Shift+/ (teclado numérico)`: Disminuye columnas
+- **Configuración flexible**: Ajusta umbrales y máximo de columnas
+
+### 🔧 **Para Usuarios Existentes**
+- **Actualización automática** con nuestro script de instalación
+- **Configuración preservada** con backup automático
+- **Servicio systemd** mejorado y optimizado
+
+### 🎨 **Detalles Técnicos**
+- **Detección inteligente**: Cambia a autotile en pantallas >2560px
+- **Distribución óptima**: Columnas dinámicas según ventanas abiertas
+- **Icono actualizado**: Nuevo icono en systray para autotile
+- **Compatibilidad total**: Funciona con todos los window managers soportados
+
+## 📋 ¿Cómo Actualizar?
+
+1. **Ejecuta el script de actualización**:
+   ```bash
+   ./update-cortile.sh
+   ```
+
+2. **Opcional - Instalación system-wide**:
+   ```bash
+   sudo ./update-cortile.sh --install-system-wide
+   ```
+
+3. **¡Listo!** Cortile se reiniciará automáticamente con las nuevas funcionalidades.
+
+## 🎮 ¿Cómo Usar Autotile?
+
+1. **En pantallas ultrawide**: Cortile detectará automáticamente y usará autotile
+2. **En pantallas normales**: Usa `Control+Shift+A` para activar autotile manualmente
+3. **Ajusta columnas**: Con los atajos de teclado numérico
+4. **Vuelve al modo clásico**: `Control+Shift+A` nuevamente
+
+## 🐛 ¿Problemas o Sugerencias?
+
+- **Reporta issues**: En nuestro repositorio de GitHub
+- **Consulta la documentación**: README.md actualizado
+- **Únete a la comunidad**: Comparte tus experiencias
+
+---
+
+**Cortile 2.1.0** - Haciendo el tiling más inteligente para pantallas modernas 🚀
+
+*"Productividad adaptada a tu pantalla"*

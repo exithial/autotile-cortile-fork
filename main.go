@@ -29,7 +29,7 @@ var (
 	target string = "unknown"
 
 	// Build version
-	version string = "0.0.0"
+	version string = "2.6.0"
 
 	// Build commit
 	commit string = "local"

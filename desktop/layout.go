@@ -23,4 +23,7 @@ type Layout interface {
 	UpdateProportions(c *store.Client, d *store.Directions)
 	GetManager() *store.Manager
 	GetName() string
+	IncreaseColumn()
+	DecreaseColumn()
+	ResetColumns()
 }

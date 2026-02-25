@@ -72,6 +72,12 @@ func UpdateIcon(ws *desktop.Workspace) {
 		draw.Draw(icon, image.Rect(x0, y0, x0+2*layoutMargin, y1-2*layoutMargin), &col, image.Point{}, draw.Src)
 		draw.Draw(icon, image.Rect(x0, y0, x1-2*layoutMargin, y0+2*layoutMargin), &col, image.Point{}, draw.Src)
 		draw.Draw(icon, image.Rect(x0+2*layoutMargin+20, y0+2*layoutMargin+20, x1, y1), &col, image.Point{}, draw.Src)
+	case "autotile":
+		// Draw 3 columns (default autotile layout)
+		colWidth := (x1 - x0) / 3
+		draw.Draw(icon, image.Rect(x0, y0, x0+colWidth-layoutMargin, y1), &col, image.Point{}, draw.Src)
+		draw.Draw(icon, image.Rect(x0+colWidth+layoutMargin, y0, x0+2*colWidth-layoutMargin, y1), &col, image.Point{}, draw.Src)
+		draw.Draw(icon, image.Rect(x0+2*colWidth+layoutMargin, y0, x1, y1), &col, image.Point{}, draw.Src)
 	}
 
 	// Draw hint rectangle

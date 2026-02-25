@@ -1,0 +1,223 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.6.0] - 2026-02-25
+
+### Added
+- **Autotile layout**: New dynamic column-based layout for ultrawide displays
+- **Ultrawide detection**: Automatic layout switching based on screen width threshold
+- **Column management**: Dynamic column adjustment with keyboard shortcuts
+- **New keyboard shortcuts**:
+  - `Control-Shift-A`: Toggle between autotile and vertical-left layouts
+  - `Control-Shift-KP_Multiply`: Increase number of columns in autotile
+  - `Control-Shift-KP_Divide`: Decrease number of columns in autotile
+- **Configuration options**:
+  - `ultrawide_threshold`: Screen width to trigger autotile mode (default: 2560px)
+  - `autotile_columns_max`: Maximum columns for autotile layout (default: 4)
+  - `autotile_columns_default`: Default columns for autotile layout (default: 4)
+- **Installation script**: Complete update script with systemd service management
+
+### Changed
+- **Default layout**: Changed from `vertical-right` to `autotile`
+- **Layout cycle**: Added `autotile` to default layout cycle
+- **Interface extension**: All layouts now implement column management methods
+- **Configuration**: Updated `config.toml` with new autotile settings
+- **Version**: Updated to 2.6.0 for fork with autotile feature
+
+### Fixed
+- **Code structure**: Consistent interface implementation across all layouts
+- **Icon rendering**: Added autotile icon representation in systray
+
+### Technical Details
+- **New file**: `layout/autotile.go` - Complete autotile implementation
+- **Updated files**:
+  - `common/config.go`: Added configuration struct fields
+  - `config.toml`: Updated with autotile configuration
+  - `desktop/layout.go`: Extended Layout interface
+  - `desktop/workspace.go`: Added autotile to layout creation
+  - `input/action.go`: New autotile actions and shortcuts
+  - `layout/fullscreen.go`, `layout/horizontal.go`, `layout/maximized.go`, `layout/vertical.go`: Interface compliance
+  - `ui/icon.go`: Autotile icon rendering
+- **Script**: `update-cortile.sh` - Complete installation and update script
+
+## [2.5.2] - 2024-02-24
+
+### Changed
+- Updated Go version
+
+## [2.5.1] - 2024-02-24
+
+### Changed
+- Updated dependencies
+
+## [2.5.0] - 2024-02-24
+
+### Added
+- Runtime feature flags for custom builds (#76)
+- Configurable layout cycle order (#78)
+
+## [2.4.0] - 2024-02-24
+
+### Added
+- Enhanced window management features
+
+## [2.3.3] - 2024-02-24
+
+### Fixed
+- Bug fixes and stability improvements
+
+## [2.3.2] - 2024-02-24
+
+### Fixed
+- Performance optimizations
+
+## [2.3.1] - 2024-02-24
+
+### Fixed
+- Minor bug fixes
+
+## [2.3.0] - 2024-02-24
+
+### Added
+- New window management features
+
+## [2.2.2] - 2024-02-24
+
+### Fixed
+- Stability improvements
+
+## [2.2.1] - 2024-02-24
+
+### Fixed
+- Bug fixes
+
+## [2.2.0] - 2024-02-24
+
+### Added
+- Enhanced layout management
+
+## [2.1.1] - 2024-02-24
+
+### Fixed
+- Minor fixes
+
+## [2.1.0] - 2024-02-24
+
+### Added
+- Initial feature set for v2.1
+
+## [2.0.0] - 2024-02-24
+
+### Added
+- Major rewrite and new architecture
+- Complete refactoring of codebase
+
+## [1.2.0] - 2024-02-24
+
+### Added
+- Advanced features for v1.x series
+
+## [1.1.5] - 2024-02-24
+
+### Fixed
+- Stability improvements
+
+## [1.1.4] - 2024-02-24
+
+### Fixed
+- Bug fixes
+
+## [1.1.3] - 2024-02-24
+
+### Fixed
+- Performance optimizations
+
+## [1.1.2] - 2024-02-24
+
+### Fixed
+- Minor fixes
+
+## [1.1.1] - 2024-02-24
+
+### Fixed
+- Initial bug fixes for v1.1
+
+## [1.1.0] - 2024-02-24
+
+### Added
+- New features for v1.1 release
+
+## [1.0.0-rc.3] - 2024-02-24
+
+### Changed
+- Release candidate 3
+
+## [1.0.0-rc.2] - 2024-02-24
+
+### Changed
+- Release candidate 2
+
+## [1.0.0-rc.1] - 2024-02-24
+
+### Changed
+- Release candidate 1
+
+## [1.0.0b3] - 2024-02-24
+
+### Changed
+- Beta 3 release
+
+## [1.0.0b2] - 2024-02-24
+
+### Changed
+- Beta 2 release
+
+## [1.0.0b1] - 2024-02-24
+
+### Changed
+- Beta 1 release
+
+## [1.0.0a4] - 2024-02-24
+
+### Changed
+- Alpha 4 release
+
+## [1.0.0a3] - 2024-02-24
+
+### Changed
+- Alpha 3 release
+
+## [1.0.0a2] - 2024-02-24
+
+### Changed
+- Alpha 2 release
+
+## [1.0.0a1] - 2024-02-24
+
+### Changed
+- Alpha 1 release
+
+## [1.0.0] - 2024-02-24
+
+### Added
+- Initial stable release of Cortile with core tiling functionality
+- Workspace based tiling
+- Auto detection of panels
+- Toggle window decorations
+- User interface for tiling mode
+- Systray icon indicator and menu
+- Custom addons via python bindings
+- Keyboard, hot corner and systray bindings
+- Vertical, horizontal, maximized and fullscreen mode
+- Remember layout proportions
+- Floating and sticky windows
+- Drag & drop window swap
+- Workplace aware layouts
+- Multi monitor support
+
+## [Unreleased]
+

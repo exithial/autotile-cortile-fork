@@ -63,3 +63,15 @@ func (l *FullscreenLayout) GetManager() *store.Manager {
 func (l *FullscreenLayout) GetName() string {
 	return l.Name
 }
+
+func (l *FullscreenLayout) IncreaseColumn() {
+	// No-op for fullscreen layout
+}
+
+func (l *FullscreenLayout) DecreaseColumn() {
+	// No-op for fullscreen layout
+}
+
+func (l *FullscreenLayout) ResetColumns() {
+	// No-op for fullscreen layout
+}

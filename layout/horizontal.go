@@ -234,3 +234,15 @@ func (l *HorizontalLayout) GetManager() *store.Manager {
 func (l *HorizontalLayout) GetName() string {
 	return l.Name
 }
+
+func (l *HorizontalLayout) IncreaseColumn() {
+	// No-op for horizontal layout
+}
+
+func (l *HorizontalLayout) DecreaseColumn() {
+	// No-op for horizontal layout
+}
+
+func (l *HorizontalLayout) ResetColumns() {
+	// No-op for horizontal layout
+}

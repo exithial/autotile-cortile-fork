@@ -10,10 +10,11 @@
 tiling_enabled = true
 
 # Initial tiling layout, will be cached afterwards ("vertical-left" | "vertical-right" | "horizontal-top" | "horizontal-bottom" | "maximized" | "fullscreen").
-tiling_layout = "vertical-right"
+tiling_layout = "autotile"
 
 # List of tiling layouts used for next/previous layout cycle ([] = default).
 tiling_cycle = [
+    "autotile",
     "vertical-left",
     "vertical-right",
     "horizontal-top",
@@ -74,6 +75,15 @@ window_focus_delay = 0
 
 # Initial rendering of window decorations, will be cached afterwards (true | false).
 window_decoration = true
+
+# Screen width (pixels) to trigger autotile mode on ultrawide displays.
+ultrawide_threshold = 2560
+
+# Maximum number of columns for autotile layout (1 - 6).
+autotile_columns_max = 4
+
+# Default number of columns for autotile layout (1 - 6).
+autotile_columns_default = 4
 
 ################################## Proportion ##################################
 
@@ -159,6 +169,14 @@ layout_horizontal_top = "Control-Shift-Up"
 # Activates the horizontal-bottom layout (Down = Arrow_Down).
 layout_horizontal_bottom = "Control-Shift-Down"
 
+# Toggle between autotile and vertical-left layouts.
+autotile_toggle = "Control-Shift-A"
+
+# Increase the number of columns for autotile layout.
+column_increase = "Control-Shift-KP_Multiply"
+
+# Decrease the number of columns for autotile layout.
+column_decrease = "Control-Shift-KP_Divide"
 # Activates the maximized layout (Space = Blank).
 layout_maximized = "Control-Shift-Space"
 
