@@ -5,23 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.1] - 2026-02-25
+
+### Changed
+
+- **Autotile: cálculo dinámico de columnas universal**: El layout autotile ahora calcula dinámicamente el número de columnas según la cantidad de ventanas abiertas en **todos** los monitores, no solo en ultrawide
+- **Autotile: límite de columnas para resolución estándar**: En monitores no-ultrawide (< `ultrawide_threshold`), el máximo de columnas se limita a 2 para evitar ventanas demasiado estrechas
+- **Atajo toggle**: Cambiado de `Control-Shift-T` a `Control-Shift-Y` para evitar conflictos con atajos comunes
+- **Atajo restore**: Cambiado de `Control-Shift-R` a `Control-Shift-U` para evitar conflictos con atajos comunes
+- **Versión externalizada**: La versión del binario se lee desde el archivo `VERSION` en la raíz del proyecto (via `//go:embed`), eliminando el hardcoding en `main.go`
+
+### Technical Details
+
+- `layout/autotile.go` → `Apply()`: `calculateColumns(csize)` se invoca siempre; el cap de 2 columnas solo aplica si `!isUltrawide`
+- `config.toml` → `[keys]`: `toggle = "Control-Shift-Y"`
+- `VERSION`: nuevo archivo en la raíz con la versión semántica del binario
+- `main.go`: versión leída con `//go:embed VERSION` en lugar de string literal
+
 ## [2.7.0] - 2026-02-25
 
 ### Added
+
 - **Proporciones por columna en autotile**: Nueva funcionalidad para ajustar proporciones individuales de columnas
 - **Atajos de proporción**: Ctrl+Shift+KP_3 (increase) y Ctrl+Shift+KP_1 (decrease) ahora funcionan en autotile
 - **Reset automático**: Las proporciones se resetean al activar/desactivar autotile o tiling
 - **Distribución equilibrada**: Columnas centrales se expanden hacia ambos lados, no solo hacia uno
 
 ### Changed
+
 - **Algoritmo de distribución**: Columnas ajustan espacio de vecinos de manera inteligente
 - **Reset de layout**: Mejorado el reset de proporciones al cambiar layouts
 
 ### Fixed
+
 - **Interfaz desordenada**: Corregido problema donde columnas centrales solo se expandían hacia un lado
 - **Consistencia**: Asegurado que todas las columnas mantengan proporciones válidas
 
 ### Technical Details
+
 - **Nuevos métodos**: `ResetColumnProportions()`, `adjustActiveColumnProportion()`, `normalizeColumnProportions()`
 - **Campo nuevo**: `ColumnProps []float64` en `AutotileLayout` para proporciones por columna
 - **Algoritmo mejorado**: Distribución 50%/50% para columnas centrales entre vecinos izquierdo/derecho
@@ -32,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.6.0] - 2026-02-25
 
 ### Added
+
 - **Autotile layout**: New dynamic column-based layout for ultrawide displays
 - **Ultrawide detection**: Automatic layout switching based on screen width threshold
 - **Column management**: Dynamic column adjustment with keyboard shortcuts
@@ -46,6 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Installation script**: Complete update script with systemd service management
 
 ### Changed
+
 - **Default layout**: Changed from `vertical-right` to `autotile`
 - **Layout cycle**: Added `autotile` to default layout cycle
 - **Interface extension**: All layouts now implement column management methods
@@ -53,10 +76,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Version**: Updated to 2.6.0 for fork with autotile feature
 
 ### Fixed
+
 - **Code structure**: Consistent interface implementation across all layouts
 - **Icon rendering**: Added autotile icon representation in systray
 
 ### Technical Details
+
 - **New file**: `layout/autotile.go` - Complete autotile implementation
 - **Updated files**:
   - `common/config.go`: Added configuration struct fields
@@ -71,163 +96,195 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.5.2] - 2024-02-24
 
 ### Changed
+
 - Updated Go version
 
 ## [2.5.1] - 2024-02-24
 
 ### Changed
+
 - Updated dependencies
 
 ## [2.5.0] - 2024-02-24
 
 ### Added
+
 - Runtime feature flags for custom builds (#76)
 - Configurable layout cycle order (#78)
 
 ## [2.4.0] - 2024-02-24
 
 ### Added
+
 - Enhanced window management features
 
 ## [2.3.3] - 2024-02-24
 
 ### Fixed
+
 - Bug fixes and stability improvements
 
 ## [2.3.2] - 2024-02-24
 
 ### Fixed
+
 - Performance optimizations
 
 ## [2.3.1] - 2024-02-24
 
 ### Fixed
+
 - Minor bug fixes
 
 ## [2.3.0] - 2024-02-24
 
 ### Added
+
 - New window management features
 
 ## [2.2.2] - 2024-02-24
 
 ### Fixed
+
 - Stability improvements
 
 ## [2.2.1] - 2024-02-24
 
 ### Fixed
+
 - Bug fixes
 
 ## [2.2.0] - 2024-02-24
 
 ### Added
+
 - Enhanced layout management
 
 ## [2.1.1] - 2024-02-24
 
 ### Fixed
+
 - Minor fixes
 
 ## [2.1.0] - 2024-02-24
 
 ### Added
+
 - Initial feature set for v2.1
 
 ## [2.0.0] - 2024-02-24
 
 ### Added
+
 - Major rewrite and new architecture
 - Complete refactoring of codebase
 
 ## [1.2.0] - 2024-02-24
 
 ### Added
+
 - Advanced features for v1.x series
 
 ## [1.1.5] - 2024-02-24
 
 ### Fixed
+
 - Stability improvements
 
 ## [1.1.4] - 2024-02-24
 
 ### Fixed
+
 - Bug fixes
 
 ## [1.1.3] - 2024-02-24
 
 ### Fixed
+
 - Performance optimizations
 
 ## [1.1.2] - 2024-02-24
 
 ### Fixed
+
 - Minor fixes
 
 ## [1.1.1] - 2024-02-24
 
 ### Fixed
+
 - Initial bug fixes for v1.1
 
 ## [1.1.0] - 2024-02-24
 
 ### Added
+
 - New features for v1.1 release
 
 ## [1.0.0-rc.3] - 2024-02-24
 
 ### Changed
+
 - Release candidate 3
 
 ## [1.0.0-rc.2] - 2024-02-24
 
 ### Changed
+
 - Release candidate 2
 
 ## [1.0.0-rc.1] - 2024-02-24
 
 ### Changed
+
 - Release candidate 1
 
 ## [1.0.0b3] - 2024-02-24
 
 ### Changed
+
 - Beta 3 release
 
 ## [1.0.0b2] - 2024-02-24
 
 ### Changed
+
 - Beta 2 release
 
 ## [1.0.0b1] - 2024-02-24
 
 ### Changed
+
 - Beta 1 release
 
 ## [1.0.0a4] - 2024-02-24
 
 ### Changed
+
 - Alpha 4 release
 
 ## [1.0.0a3] - 2024-02-24
 
 ### Changed
+
 - Alpha 3 release
 
 ## [1.0.0a2] - 2024-02-24
 
 ### Changed
+
 - Alpha 2 release
 
 ## [1.0.0a1] - 2024-02-24
 
 ### Changed
+
 - Alpha 1 release
 
 ## [1.0.0] - 2024-02-24
 
 ### Added
+
 - Initial stable release of Cortile with core tiling functionality
 - Workspace based tiling
 - Auto detection of panels
@@ -244,4 +301,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Multi monitor support
 
 ## [Unreleased]
-

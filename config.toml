@@ -140,13 +140,13 @@ enable = "Control-Shift-Home"
 disable = "Control-Shift-End"
 
 # Toggle between enable and disable on the current screen.
-toggle = "Control-Shift-T"
+toggle = "Control-Shift-Y"
 
 # Toggle window decoration on and off on the current screen.
 decoration = "Control-Shift-D"
 
 # Disable tiling and restore windows on the current screen.
-restore = "Control-Shift-R"
+restore = "Control-Shift-U"
 
 # Reset layouts to default proportions (BackSpace = Delete_Left)
 reset = "Control-Shift-BackSpace"

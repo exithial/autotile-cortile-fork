@@ -63,10 +63,14 @@ func (l *AutotileLayout) Apply() {
 
 	csize := len(clients)
 
+	cols := l.calculateColumns(csize)
+
 	isUltrawide := dw > common.Config.UltrawideThreshold
-	cols := l.Columns
-	if isUltrawide {
-		cols = l.calculateColumns(csize)
+	if !isUltrawide && cols > 2 {
+		// NOTE: En resoluciones estándar (< ultrawide_threshold), limitar a 2 columnas
+		// evita ventanas demasiado estrechas para ser usables. En ultrawide el
+		// espacio horizontal es suficiente para hasta AutotileColumnsMax columnas.
+		cols = 2
 	}
 
 	if cols < 1 {
@@ -357,7 +361,7 @@ func (l *AutotileLayout) adjustActiveColumnProportion(increase bool) {
 	}
 
 	step := common.Config.ProportionStep
-	
+
 	// For edge columns, adjust from the adjacent column
 	if col == 0 {
 		// Leftmost column - adjust from right neighbor
@@ -413,10 +417,10 @@ func (l *AutotileLayout) findColumnForClient(c *store.Client) int {
 	// Get window geometry
 	x, _, _, _ := c.OuterGeometry()
 	dx, _, dw, _ := store.DesktopGeometry(l.Location.Screen).Pieces()
-	
+
 	// Calculate relative position
-	relX := float64(x - dx) / float64(dw)
-	
+	relX := float64(x-dx) / float64(dw)
+
 	// Determine column based on relative position
 	// This assumes columns are arranged left to right
 	colWidth := 1.0 / float64(l.Columns)
@@ -432,13 +436,13 @@ func (l *AutotileLayout) normalizeColumnProportions() {
 	if l.Columns <= 1 {
 		return
 	}
-	
+
 	// Ensure sum is approximately 1.0
 	total := 0.0
 	for i := 0; i < l.Columns; i++ {
 		total += l.ColumnProps[i]
 	}
-	
+
 	if total <= 0 || math.Abs(total-1.0) > 0.001 {
 		// Normalize to sum to 1.0
 		for i := 0; i < l.Columns; i++ {

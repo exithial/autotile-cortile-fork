@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "embed"
+	"strings"
 
 	"fmt"
 	"io"
@@ -28,8 +29,8 @@ var (
 	// Build target
 	target string = "unknown"
 
-	// Build version
-	version string = "2.7.0"
+	// Build version (read from VERSION file via embed)
+	version string
 
 	// Build commit
 	commit string = "local"
@@ -45,6 +46,9 @@ var (
 )
 
 var (
+	//go:embed VERSION
+	versionFile string
+
 	//go:embed config.toml
 	toml []byte
 
@@ -55,7 +59,7 @@ var (
 func main() {
 
 	// Init process, build and source information
-	common.InitInfo(name, target, version, commit, date, source, flags)
+	common.InitInfo(name, target, strings.TrimSpace(versionFile), commit, date, source, flags)
 
 	// Init command line arguments
 	common.InitArgs(input.Introspect())
