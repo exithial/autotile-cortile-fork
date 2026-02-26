@@ -88,7 +88,6 @@ func ExecuteAction(action string, tr *desktop.Tracker, ws *desktop.Workspace) bo
 		success = DecreaseColumn(tr, ws)
 	case "window_next":
 		success = NextWindow(tr, ws)
-		success = NextWindow(tr, ws)
 	case "window_previous":
 		success = PreviousWindow(tr, ws)
 	case "screen_next":

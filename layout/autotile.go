@@ -143,13 +143,59 @@ func (l *AutotileLayout) applyColumns(dx, dy, dw, dh, gap, cols, csize int) {
 	}
 
 	rowsPerCol := make([]int, cols)
-	for i := 0; i < cols; i++ {
-		rowsPerCol[i] = csize / cols
-		if i < csize%cols {
-			rowsPerCol[i]++
+	
+	// Identificar columna master
+	masterCol := l.determineMasterColumn(cols)
+	
+	if csize <= cols {
+		// Menos ventanas que columnas: cada ventana en su columna
+		// Intentar poner master en su posición preferida si hay espacio
+		for i := 0; i < csize; i++ {
+			rowsPerCol[i] = 1
+		}
+		// Si masterCol está fuera del rango (ej: masterCol=1 pero solo 1 ventana),
+		// se quedará en 0, lo cual está bien
+	} else {
+		// Más ventanas que columnas
+		// Primero, 1 ventana por columna
+		for i := 0; i < cols; i++ {
+			rowsPerCol[i] = 1
+		}
+		remaining := csize - cols
+		
+		// Distribuir ventanas restantes, priorizando slaves
+		// Queremos que slaves tengan al menos 2 antes de que master tenga 2
+		for remaining > 0 {
+			// Contar cuántas slaves tienen menos de 2 ventanas
+			slavesWithLessThan2 := 0
+			for i := 0; i < cols; i++ {
+				if i != masterCol && rowsPerCol[i] < 2 {
+					slavesWithLessThan2++
+				}
+			}
+			
+			if slavesWithLessThan2 > 0 {
+				// Hay slaves con menos de 2 ventanas, darles prioridad
+				// Encontrar slave con menos ventanas
+				minSlaveCol := -1
+				minRows := int(^uint(0) >> 1)
+				for i := 0; i < cols; i++ {
+					if i == masterCol {
+						continue
+					}
+					if rowsPerCol[i] < minRows {
+						minRows = rowsPerCol[i]
+						minSlaveCol = i
+					}
+				}
+				rowsPerCol[minSlaveCol]++
+			} else {
+				// Todas las slaves tienen al menos 2, ahora puede dividirse master
+				rowsPerCol[masterCol]++
+			}
+			remaining--
 		}
 	}
-
 	currentClient := 0
 	for col := 0; col < cols; col++ {
 		rows := rowsPerCol[col]
@@ -333,7 +379,36 @@ func (l *AutotileLayout) PreviousClient() *store.Client {
 }
 
 func (l *AutotileLayout) MakeMaster(c *store.Client) {
-	l.Manager.MakeMaster(c)
+	// En autotile, el master depende del número de columnas
+	clients := l.Clients(store.Stacked)
+	if len(clients) == 0 {
+		return
+	}
+	
+	// Encontrar índice del cliente actual
+	currentIndex := -1
+	for i, client := range clients {
+		if client.Window.Id == c.Window.Id {
+			currentIndex = i
+			break
+		}
+	}
+	if currentIndex == -1 {
+		return
+	}
+	
+	// Determinar índice del master según número de columnas
+	masterIndex := l.determineMasterIndex()
+	if masterIndex >= len(clients) {
+		masterIndex = len(clients) - 1
+	}
+	
+	// Intercambiar cliente actual con el master
+	if currentIndex != masterIndex {
+		clients[currentIndex], clients[masterIndex] = clients[masterIndex], clients[currentIndex]
+		// Actualizar listas de masters y slaves
+		l.updateMasterSlaveLists(clients)
+	}
 }
 func (l *AutotileLayout) ResetColumns() {
 	l.Columns = l.ColumnsDefault
@@ -457,4 +532,111 @@ func (l *AutotileLayout) ResetColumnProportions() {
 		l.ColumnProps[i] = 1.0 / float64(common.Config.AutotileColumnsMax)
 	}
 	log.Info("Reset column proportions to equal distribution")
+}
+
+func (l *AutotileLayout) determineMasterIndex() int {
+	clients := l.Clients(store.Stacked)
+	if len(clients) == 0 {
+		return 0
+	}
+	
+	// Calcular columnas actuales
+	cols := l.calculateColumns(len(clients))
+	
+	// Determinar columna master
+	masterCol := l.determineMasterColumn(cols)
+	
+	// Calcular distribución usando la misma lógica que applyColumns
+	rowsPerCol := make([]int, cols)
+	csize := len(clients)
+	
+	if csize <= cols {
+		// Menos ventanas que columnas: cada ventana en su columna
+		for i := 0; i < csize; i++ {
+			rowsPerCol[i] = 1
+		}
+	} else {
+		// Más ventanas que columnas
+		// Primero, 1 ventana por columna
+		for i := 0; i < cols; i++ {
+			rowsPerCol[i] = 1
+		}
+		remaining := csize - cols
+		
+		// Distribuir ventanas restantes, priorizando slaves
+		// Queremos que slaves tengan al menos 2 antes de que master tenga 2
+		for remaining > 0 {
+			// Contar cuántas slaves tienen menos de 2 ventanas
+			slavesWithLessThan2 := 0
+			for i := 0; i < cols; i++ {
+				if i != masterCol && rowsPerCol[i] < 2 {
+					slavesWithLessThan2++
+				}
+			}
+			
+			if slavesWithLessThan2 > 0 {
+				// Hay slaves con menos de 2 ventanas, darles prioridad
+				// Encontrar slave con menos ventanas
+				minSlaveCol := -1
+				minRows := int(^uint(0) >> 1)
+				for i := 0; i < cols; i++ {
+					if i == masterCol {
+						continue
+					}
+					if rowsPerCol[i] < minRows {
+						minRows = rowsPerCol[i]
+						minSlaveCol = i
+					}
+				}
+				rowsPerCol[minSlaveCol]++
+			} else {
+				// Todas las slaves tienen al menos 2, ahora puede dividirse master
+				rowsPerCol[masterCol]++
+			}
+			remaining--
+		}
+	}
+	
+	// Calcular índice del master en la lista de clientes
+	masterIndex := 0
+	for i := 0; i < masterCol; i++ {
+		masterIndex += rowsPerCol[i]
+	}
+	// Tomar la primera ventana de la columna master
+	return masterIndex
+}
+
+func (l *AutotileLayout) determineMasterColumn(cols int) int {
+	// Determinar columna del master según número de columnas
+	switch cols {
+	case 1:
+		return 0
+	case 2:
+		// Con 2 columnas, master es el de la derecha
+		return 1
+	case 3:
+		// Con 3 columnas, master es el del centro
+		return 1
+	case 4:
+		// Con 4 columnas, master es el del centro-derecha
+		return 2
+	default:
+		// Para más de 4 columnas, usar el del centro
+		return cols / 2
+	}
+}
+
+func (l *AutotileLayout) updateMasterSlaveLists(clients []*store.Client) {
+	// Limpiar listas actuales
+	l.Masters.Stacked = make([]*store.Client, 0)
+	l.Slaves.Stacked = make([]*store.Client, 0)
+	
+	// Reconstruir listas manteniendo el orden
+	for i, client := range clients {
+		if i < l.Masters.Maximum {
+			l.Masters.Stacked = append(l.Masters.Stacked, client)
+		} else {
+			l.Slaves.Stacked = append(l.Slaves.Stacked, client)
+		}
+	}
 }

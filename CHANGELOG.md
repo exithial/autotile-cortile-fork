@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.10.0] - 2026-02-26
+
+### Added
+
+- **Lógica de master inteligente en autotile**: El comando `Ctrl+Shift+k5` ahora establece el master según número de columnas: 2→derecha, 3→centro, 4→centro-derecha
+- **Distribución priorizada**: La columna master es la última en dividirse verticalmente, priorizando divisiones en columnas slave
+
+### Fixed
+
+- **Navegación con k2**: Corregido bug donde `Ctrl+Shift+k2` (next window) se ejecutaba dos veces debido a línea duplicada
+- **Algoritmo de distribución**: Ventanas extra se distribuyen primero en slaves hasta que tengan ≥2 ventanas, luego en master
+
+### Technical Details
+
+- `layout/autotile.go`: Nuevo algoritmo en `applyColumns()` que prioriza slaves. Métodos `determineMasterColumn()`, `determineMasterIndex()` actualizados
+- `input/action.go`: Eliminada línea duplicada en `case "window_next"`
+- **Lógica master**: Para N ventanas y C columnas, master se calcula dinámicamente según distribución actual
+
 ## [2.9.0] - 2026-02-26
 
 ### Added
@@ -16,7 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `desktop/tracker.go`: Método `ToggleFloat(w)` ahora calcula dimensiones según `ultrawide_threshold`. Si `dw > ultrawide_threshold` → 1920x1080, sino → 80% del escritorio. Centra la ventana con `x = dx + (dw-newW)/2`, `y = dy + (dh-newH)/2`
 - `config.toml`: Agregado `["plasmashell", ""]` en `window_ignore`
-
 ## [2.8.0] - 2026-02-25
 
 ### Added
@@ -326,5 +343,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Drag & drop window swap
 - Workplace aware layouts
 - Multi monitor support
-
-## [Unreleased]

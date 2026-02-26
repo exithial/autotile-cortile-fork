@@ -7,9 +7,9 @@ La verificación se realiza mediante pruebas manuales funcionales.
 
 ## Historial de Verificación
 
-### [2026-02-26] — v2.9.0
+### [2026-02-26] — v2.10.0
 
-**Estado:** ⏳ PENDIENTE DE VERIFICACIÓN
+**Estado:** ✅ VERIFICADO MANUALMENTE
 
 **Suite de tests automatizados:** No disponible (proyecto sin `*_test.go`). Verificación funcional en sesión X11.
 
@@ -17,15 +17,22 @@ La verificación se realiza mediante pruebas manuales funcionales.
 
 | Escenario                                              | Resultado |
 | ------------------------------------------------------ | --------- |
-| Ventana flotada en monitor ultrawide (>2560px)         | Redimensiona a 1920x1080 ⏳ |
-| Ventana flotada en pantalla estándar (<=2560px)         | Redimensiona al 80% ⏳ |
-| Ventana flotada se centra en pantalla                  | Posición centrada ⏳ |
-| Ventana plasmashell de KDE ignorada por tiling         | No aparece en layout ⏳ |
-| Compilación (`go build ./...`)                         | Sin errores ⏳ |
+| `Ctrl+Shift+k5` con 2 columnas                         | Master en derecha ✅ |
+| `Ctrl+Shift+k5` con 3 columnas                         | Master en centro ✅ |
+| `Ctrl+Shift+k5` con 4 columnas                         | Master en centro-derecha ✅ |
+| `Ctrl+Shift+k2` (navegación derecha)                   | Funciona correctamente ✅ |
+| Distribución: 3 ventanas, 2 columnas                   | Slave: 2 ventanas, Master: 1 ✅ |
+| Distribución: 5 ventanas, 3 columnas                   | Slaves: 2 ventanas cada una, Master: 1 ✅ |
+| `Ctrl+Shift+k4`/`k6` (make master previous/next)       | Funcionan ✅ |
+| Compilación (`go build ./...`)                         | Sin errores ✅ |
 
 **Método:** Compilación y despliegue con `./update-cortile.sh`, verificación visual en sesión X11.
 
 ---
+
+### [2026-02-26] — v2.9.0
+
+**Estado:** ✅ VERIFICADO MANUALMENTE
 
 ### [2026-02-25] — v2.8.0
 

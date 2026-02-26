@@ -1,19 +1,49 @@
-v2.9.0 - Redimensión Inteligente de Ventanas Flotantes
+🎉 Cortile v2.10.0 - Mejoras Inteligentes en Autotile
 
-¡Nueva versión de Cortile! Ahora las ventanas flotantes se adaptan automáticamente al tamaño de tu pantalla.
+📅 Fecha: 26 de Febrero 2026
 
-🪟 Novedades
-- Las ventanas flotantes ahora se redimensionan automáticamente:
-  • En monitores ultrawide (>2560px): se ajustan a 1920x1080
-  • En pantallas estándar: ocupan el 80% del escritorio
-- Se ha añadido exclusión para plasmashell (interfaz de KDE) para evitar conflictos con Plasma
+¡Hola! Presentamos la versión 2.10.0 de Cortile con mejoras significativas en el layout autotile que hacen la gestión de ventanas más inteligente y predecible.
 
-🔧 Mejoras
-- Mejor integración con escritorio KDE/Plasma
-- Comportamiento más predecible del modo flotante
+✨ **Novedades Principales:**
 
-💡 Cómo usar
-Usa el atajo Control-Shift-G para alternar cualquier ventana entre el modo tiled y flotante.
+🔹 **Master Inteligente por Columnas**
+- El comando `Ctrl+Shift+k5` ahora establece el "master" según el número de columnas activas:
+  - 2 columnas → ventana derecha
+  - 3 columnas → ventana central
+  - 4 columnas → ventana centro-derecha
+- ¡Más lógico y predecible!
+
+🔹 **Distribución Priorizada**
+- La columna master es la **última** en dividirse verticalmente
+- Las columnas "slave" se dividen primero cuando abres nuevas ventanas
+- Prioridad: slaves con al menos 2 ventanas antes de dividir el master
+- Resultado: Layout más equilibrado y organizado
+
+🔹 **Correcciones Importantes**
+- Solucionado bug en navegación con `Ctrl+Shift+k2` (derecha)
+- Algoritmo de distribución mejorado para ventanas extra
+- Todo funciona de manera más fluida
+
+🎯 **Para Usuarios de Autotile:**
+- Abre varias ventanas y observa cómo se distribuyen inteligentemente
+- Usa `k5` para establecer master según el contexto actual
+- Navega entre ventanas con `k2`/`k8` sin problemas
+- Ajusta master anterior/siguiente con `k4`/`k6`
+
+🛠 **Detalles Técnicos:**
+- Algoritmo mejorado en `layout/autotile.go`
+- Corrección en `input/action.go` (línea duplicada eliminada)
+- Lógica master calculada dinámicamente según distribución
+
+📈 **Beneficios:**
+✅ Layout más predecible y organizado
+✅ Master siempre en posición óptima según columnas
+✅ Distribución inteligente de nuevas ventanas
+✅ Navegación fluida entre ventanas
+✅ Experiencia de usuario mejorada
+
+¡Actualiza y disfruta de un autotile más inteligente!
 
 ---
-Cortile v2 - Auto Tiling Manager para Linux
+Cortile - Tiling Manager para Linux
+Versión 2.10.0
