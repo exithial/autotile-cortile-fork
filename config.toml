@@ -59,6 +59,7 @@ window_ignore = [
     ["blueman.*", ""],
     ["pavucontrol.*", ""],
     ["firefox.*", ".*Mozilla Firefox"],
+    ["plasmashell", ""],
 ]
 
 # Maximum number of allowed master windows (0 - 5).

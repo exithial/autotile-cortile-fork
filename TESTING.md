@@ -7,6 +7,26 @@ La verificación se realiza mediante pruebas manuales funcionales.
 
 ## Historial de Verificación
 
+### [2026-02-26] — v2.9.0
+
+**Estado:** ⏳ PENDIENTE DE VERIFICACIÓN
+
+**Suite de tests automatizados:** No disponible (proyecto sin `*_test.go`). Verificación funcional en sesión X11.
+
+**Cambios verificados:**
+
+| Escenario                                              | Resultado |
+| ------------------------------------------------------ | --------- |
+| Ventana flotada en monitor ultrawide (>2560px)         | Redimensiona a 1920x1080 ⏳ |
+| Ventana flotada en pantalla estándar (<=2560px)         | Redimensiona al 80% ⏳ |
+| Ventana flotada se centra en pantalla                  | Posición centrada ⏳ |
+| Ventana plasmashell de KDE ignorada por tiling         | No aparece en layout ⏳ |
+| Compilación (`go build ./...`)                         | Sin errores ⏳ |
+
+**Método:** Compilación y despliegue con `./update-cortile.sh`, verificación visual en sesión X11.
+
+---
+
 ### [2026-02-25] — v2.8.0
 
 **Estado:** ✅ VERIFICADO MANUALMENTE

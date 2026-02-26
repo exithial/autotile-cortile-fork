@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.0] - 2026-02-26
+
+### Added
+
+- **Redimensión automática de ventanas flotantes**: Las ventanas flotantes se redimensionan automáticamente: 1920x1080 en pantallas ultrawide (>2560px), 80% del escritorio en pantallas estándar
+- **Exclusión de ventana plasmashell**: Se excluye la interfaz de KDE (`plasmashell`) del tiling para evitar conflictos con Plasma
+
+### Technical Details
+
+- `desktop/tracker.go`: Método `ToggleFloat(w)` ahora calcula dimensiones según `ultrawide_threshold`. Si `dw > ultrawide_threshold` → 1920x1080, sino → 80% del escritorio. Centra la ventana con `x = dx + (dw-newW)/2`, `y = dy + (dh-newH)/2`
+- `config.toml`: Agregado `["plasmashell", ""]` en `window_ignore`
+
 ## [2.8.0] - 2026-02-25
 
 ### Added

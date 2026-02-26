@@ -1,17 +1,19 @@
-v2.8.0 - Ventanas Flotantes a Golpe de Tecla
+v2.9.0 - Redimensión Inteligente de Ventanas Flotantes
 
-🪟 Ventana flotante con un solo atajo: Ahora puedes sacar cualquier ventana del
-   mosaico y dejarla flotando libremente sobre el resto, sin desactivar el tiling
-   global. Usa Ctrl+Shift+G para activarlo y vuelve a pulsarlo para reintegrar la
-   ventana al layout automáticamente.
+¡Nueva versión de Cortile! Ahora las ventanas flotantes se adaptan automáticamente al tamaño de tu pantalla.
 
-✨ Vista previa visual del estado: Al activar o desactivar el modo flotante
-   aparece un indicador centrado en pantalla que muestra de forma gráfica si la
-   ventana está flotando (representación visual con ventana elevada sobre el fondo)
-   o volviendo al mosaico (preview del layout actual).
+🪟 Novedades
+- Las ventanas flotantes ahora se redimensionan automáticamente:
+  • En monitores ultrawide (>2560px): se ajustan a 1920x1080
+  • En pantallas estándar: ocupan el 80% del escritorio
+- Se ha añadido exclusión para plasmashell (interfaz de KDE) para evitar conflictos con Plasma
 
-🔄 Reintegración inteligente: Al desactivar el modo flotante, la ventana vuelve
-   al layout de forma inmediata y el resto de ventanas se redistribuyen
-   automáticamente para aprovechar el espacio recuperado.
+🔧 Mejoras
+- Mejor integración con escritorio KDE/Plasma
+- Comportamiento más predecible del modo flotante
 
-¡Gracias por usar Cortile!
+💡 Cómo usar
+Usa el atajo Control-Shift-G para alternar cualquier ventana entre el modo tiled y flotante.
+
+---
+Cortile v2 - Auto Tiling Manager para Linux

@@ -646,6 +646,29 @@ func (tr *Tracker) ToggleFloat(w xproto.Window) {
 		delete(tr.FloatedWindows, w)
 	} else {
 		tr.FloatedWindows[w] = true
+
+		ws := tr.ActiveWorkspace()
+		if ws != nil {
+			screenIdx := store.Workplace.CurrentScreen
+			deskGeom := store.DesktopGeometry(screenIdx)
+			dx, dy, dw, dh := deskGeom.Pieces()
+
+			var newW, newH int
+			if dw > common.Config.UltrawideThreshold {
+				newW, newH = 1920, 1080
+			} else {
+				newW = int(float64(dw) * 0.8)
+				newH = int(float64(dh) * 0.8)
+			}
+
+			x := dx + (dw-newW)/2
+			y := dy + (dh-newH)/2
+
+			c := tr.Clients[w]
+			if c != nil {
+				c.MoveWindow(x, y, newW, newH)
+			}
+		}
 	}
 	tr.Update()
 	ws := tr.ActiveWorkspace()
