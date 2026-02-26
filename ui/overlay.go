@@ -70,6 +70,62 @@ func ShowLayout(ws *desktop.Workspace) {
 	})
 }
 
+// ShowWindowFloat muestra un overlay visual representativo al hacer toggle
+// de ventana flotante. Para 'floating' dibuja un rectángulo desplazado sobre
+// un fondo (ventana flotando encima del tiling). Para 'tiling' muestra el
+// layout actual con todos los clientes (igual que ShowLayout).
+func ShowWindowFloat(ws *desktop.Workspace, floated bool) {
+	location := store.Location{Desktop: store.Workplace.CurrentDesktop}
+	if ws == nil || ws.Location.Desktop != location.Desktop || common.Config.TilingGui <= 0 {
+		return
+	}
+
+	time.AfterFunc(50*time.Millisecond, func() {
+		// Mismo tamaño de canvas que ShowLayout para centrado correcto
+		dim := dimensions(ws)
+		_, _, w, h := scale(dim.X, dim.Y, dim.Width, dim.Height)
+
+		bg := bgra("gui_background")
+		cv := xgraphics.New(store.X, image.Rect(0, 0, w+rectMargin, h+fontSize+2*fontMargin+2*rectMargin))
+		cv.For(func(x int, y int) xgraphics.BGRA { return bg })
+
+		if floated {
+			// Dibujar representación de ventana flotante
+			drawFloating(cv)
+			drawText(cv, "floating", bgra("gui_text"), cv.Rect.Dx()/2, cv.Rect.Dy()-2*fontMargin-rectMargin, fontSize)
+		} else {
+			// Dibujar representación del layout actual (ventana reintegrada)
+			name := ws.ActiveLayout().GetName()
+			drawClients(cv, ws, name)
+			drawText(cv, "tiling", bgra("gui_text"), cv.Rect.Dx()/2, cv.Rect.Dy()-2*fontMargin-rectMargin, fontSize)
+		}
+
+		showGraphics(cv, ws, time.Duration(common.Config.TilingGui))
+	})
+}
+
+// drawFloating dibuja una representación visual de ventana flotante:
+// un fondo oscuro que simula las ventanas tileadas debajo, y un rectángulo
+// más claro desplazado encima que representa la ventana flotante.
+func drawFloating(cv *xgraphics.Image) {
+	w := cv.Rect.Dx()
+	h := cv.Rect.Dy() - fontSize - 2*fontMargin - 2*rectMargin
+
+	// Fondo: área tileada (rectángulos distribuidos)
+	slaveColor := bgra("gui_client_slave")
+	half := w/2 - rectMargin*2
+	// Dos columnas simulando layout tileado
+	drawImage(cv, &image.Uniform{slaveColor}, slaveColor, rectMargin, rectMargin, half, h-rectMargin)
+	drawImage(cv, &image.Uniform{slaveColor}, slaveColor, half+rectMargin*2, rectMargin, w-rectMargin, h-rectMargin)
+
+	// Ventana flotante: rectángulo desplazado encima, centrado y elevado
+	masterColor := bgra("gui_client_master")
+	fw, fh := w*2/5, h*2/5
+	fx := w/2 - fw/2 + w/16 // ligeramente desplazado a la derecha
+	fy := h/2 - fh/2 - h/8  // ligeramente elevado
+	drawImage(cv, &image.Uniform{masterColor}, masterColor, fx, fy, fx+fw, fy+fh)
+}
+
 func drawClients(cv *xgraphics.Image, ws *desktop.Workspace, layout string) {
 	al := ws.ActiveLayout()
 	mg := al.GetManager()

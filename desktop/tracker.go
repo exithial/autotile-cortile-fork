@@ -16,10 +16,11 @@ import (
 )
 
 type Tracker struct {
-	Clients    map[xproto.Window]*store.Client // List of tracked clients
-	Workspaces map[store.Location]*Workspace   // List of workspaces per location
-	Channels   *Channels                       // Helper for channel communication
-	Handlers   *Handlers                       // Helper for event handlers
+	Clients        map[xproto.Window]*store.Client // List of tracked clients
+	Workspaces     map[store.Location]*Workspace   // List of workspaces per location
+	Channels       *Channels                       // Helper for channel communication
+	Handlers       *Handlers                       // Helper for event handlers
+	FloatedWindows map[xproto.Window]bool          // Windows manually excluded from tiling
 
 }
 type Channels struct {
@@ -62,8 +63,9 @@ func (h *Handler) Reset() {
 
 func CreateTracker() *Tracker {
 	tr := Tracker{
-		Clients:    make(map[xproto.Window]*store.Client),
-		Workspaces: CreateWorkspaces(),
+		Clients:        make(map[xproto.Window]*store.Client),
+		Workspaces:     CreateWorkspaces(),
+		FloatedWindows: make(map[xproto.Window]bool),
 		Channels: &Channels{
 			Event:  make(chan string),
 			Action: make(chan string),
@@ -630,6 +632,24 @@ func (tr *Tracker) isTracked(w xproto.Window) bool {
 }
 
 func (tr *Tracker) isTrackable(w xproto.Window) bool {
+	if tr.FloatedWindows[w] {
+		return false
+	}
 	info := store.GetInfo(w)
 	return !store.IsSpecial(info) && !store.IsIgnored(info)
+}
+
+// ToggleFloat alterna la ventana entre el tiling y el estado flotante.
+// Usa un mapa interno para no depender de estados EWMH externos.
+func (tr *Tracker) ToggleFloat(w xproto.Window) {
+	if tr.FloatedWindows[w] {
+		delete(tr.FloatedWindows, w)
+	} else {
+		tr.FloatedWindows[w] = true
+	}
+	tr.Update()
+	ws := tr.ActiveWorkspace()
+	if ws != nil {
+		tr.Tile(ws)
+	}
 }

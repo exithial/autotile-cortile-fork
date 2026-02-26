@@ -1,54 +1,17 @@
-🎉 **Cortile v2.7.0 - Proporciones Inteligentes para Autotile** 🎉
+v2.8.0 - Ventanas Flotantes a Golpe de Tecla
 
-¡Hola usuarios de Cortile! 
+🪟 Ventana flotante con un solo atajo: Ahora puedes sacar cualquier ventana del
+   mosaico y dejarla flotando libremente sobre el resto, sin desactivar el tiling
+   global. Usa Ctrl+Shift+G para activarlo y vuelve a pulsarlo para reintegrar la
+   ventana al layout automáticamente.
 
-Estamos emocionados de presentar la versión 2.7.0, que trae mejoras significativas a la experiencia de autotile. Esta actualización hace que el manejo de ventanas en pantallas ultrawide sea más intuitivo y poderoso que nunca.
+✨ Vista previa visual del estado: Al activar o desactivar el modo flotante
+   aparece un indicador centrado en pantalla que muestra de forma gráfica si la
+   ventana está flotando (representación visual con ventana elevada sobre el fondo)
+   o volviendo al mosaico (preview del layout actual).
 
-## ✨ **Novedades Destacadas**
+🔄 Reintegración inteligente: Al desactivar el modo flotante, la ventana vuelve
+   al layout de forma inmediata y el resto de ventanas se redistribuyen
+   automáticamente para aprovechar el espacio recuperado.
 
-### 🔧 **Ajuste de Proporciones por Columna**
-Ahora puedes ajustar el tamaño de columnas individuales en el layout autotile:
-- **Ctrl+Shift+KP_3**: Agrandar columna activa
-- **Ctrl+Shift+KP_1**: Reducir columna activa
-- Las columnas centrales se expanden hacia **ambos lados** (¡no más interfaz desordenada!)
-- Columnas laterales ajustan del vecino inmediato
-
-### 🔄 **Reset Automático Inteligente**
-- Las proporciones se resetean automáticamente al activar/desactivar autotile
-- También se resetean al activar/desactivar el tiling completo
-- Siempre vuelves a una distribución equilibrada
-
-### 🎯 **Mejoras de Usabilidad**
-- Distribución 50%/50% para cambios en columnas centrales
-- Proporciones mínimas respetadas para evitar columnas demasiado pequeñas
-- Cálculos precisos sin errores de redondeo
-
-## 🚀 **¿Cómo Usarlo?**
-
-1. **Activa autotile** con `Ctrl+Shift+A`
-2. **Selecciona una ventana** en la columna que quieras ajustar
-3. **Usa los atajos**:
-   - `Ctrl+Shift+KP_3`: Agrandar columna activa
-   - `Ctrl+Shift+KP_1`: Reducir columna activa
-4. **Para resetear**: Activa/desactiva autotile o el tiling completo
-
-## 🛠 **Detalles Técnicos**
-
-Esta versión incluye:
-- Nuevo sistema de proporciones por columna
-- Algoritmo inteligente de distribución de espacio
-- Reset automático en múltiples escenarios
-- Código optimizado y mantenible
-
-## 📋 **Compatibilidad**
-
-- Totalmente compatible con versiones anteriores
-- Mismas configuraciones y atajos
-- Sin cambios en la API pública
-
----
-
-**¡Gracias por usar Cortile!** 🎯
-
-*El equipo de desarrollo de Cortile Fork*
-*Versión 2.7.0 - 25 de Febrero de 2026*
+¡Gracias por usar Cortile!

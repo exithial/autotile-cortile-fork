@@ -44,6 +44,7 @@ This fork only adds additional functionality (autotile layout) for personal use.
 - [x] Autotile layout with dynamic columns (multi-monitor support).
 - [x] Remember layout proportions.
 - [x] Floating and sticky windows.
+- [x] Toggle individual window float on-the-fly (`Ctrl+Shift+G`).
 - [x] Drag & drop window swap.
 - [x] Workplace aware layouts.
 - [x] Multi monitor support.
@@ -154,6 +155,7 @@ If some of them are already in use by your system, update the default values in 
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>KP_4</kbd> | Make the previous window master |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>KP_3</kbd> | Increase proportion of master-slave area |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>KP_1</kbd> | Decrease proportion of master-slave area |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd> | Toggle active window between floating and tiling |
 
 Hot corner events are defined under the `[corners]` section and are triggered when the pointer enters one of the target areas:
 | Corners | Description |
@@ -342,6 +344,7 @@ Windows:
 
 - Dynamic column autotile layout (multi-monitor support)
 - Adaptive column limit: max 2 on standard resolution, up to 4 on ultrawide
+- Toggle individual window between floating and tiling (`Ctrl+Shift+G`) with visual feedback overlay
 - Additional configuration in `config.toml`
 - Complete update script (`update-cortile.sh`)
 - Updated documentation

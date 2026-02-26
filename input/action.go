@@ -12,8 +12,8 @@ import (
 
 	"github.com/leukipp/cortile/v2/common"
 	"github.com/leukipp/cortile/v2/desktop"
-	"github.com/leukipp/cortile/v2/store"
 	"github.com/leukipp/cortile/v2/layout"
+	"github.com/leukipp/cortile/v2/store"
 	"github.com/leukipp/cortile/v2/ui"
 
 	log "github.com/sirupsen/logrus"
@@ -95,6 +95,8 @@ func ExecuteAction(action string, tr *desktop.Tracker, ws *desktop.Workspace) bo
 		success = NextScreen(tr, ws)
 	case "screen_previous":
 		success = PreviousScreen(tr, ws)
+	case "window_float_toggle":
+		success = ToggleWindowFloat(tr)
 	case "master_make":
 		success = MakeMaster(tr, ws)
 	case "master_make_next":
@@ -491,6 +493,29 @@ func PreviousScreen(tr *desktop.Tracker, ws *desktop.Workspace) bool {
 	}
 
 	return c.MoveToScreen(uint32(screen))
+}
+
+// ToggleWindowFloat alterna la ventana activa entre el tiling y el estado flotante.
+// Usa FloatedWindows del Tracker para no depender de estados EWMH externos.
+// Obtiene el ID de la ventana directamente del X server para funcionar
+// tanto si la ventana está trackeada como si ya está flotando.
+func ToggleWindowFloat(tr *desktop.Tracker) bool {
+	w := store.Windows.Active.Id
+	if w == 0 {
+		return false
+	}
+
+	ws := tr.ActiveWorkspace()
+	if tr.FloatedWindows[w] {
+		log.Info("Window unfloated [", w, "]")
+		ui.ShowWindowFloat(ws, false)
+	} else {
+		log.Info("Window floated [", w, "]")
+		ui.ShowWindowFloat(ws, true)
+	}
+
+	tr.ToggleFloat(w)
+	return true
 }
 
 func MakeMaster(tr *desktop.Tracker, ws *desktop.Workspace) bool {

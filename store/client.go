@@ -518,6 +518,10 @@ func IsSticky(info *Info) bool {
 	return common.IsInList("_NET_WM_STATE_STICKY", info.States)
 }
 
+func IsAbove(info *Info) bool {
+	return common.IsInList("_NET_WM_STATE_ABOVE", info.States)
+}
+
 func GetInfo(w xproto.Window) *Info {
 	var err error
 

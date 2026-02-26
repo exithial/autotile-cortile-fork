@@ -7,6 +7,29 @@ La verificación se realiza mediante pruebas manuales funcionales.
 
 ## Historial de Verificación
 
+### [2026-02-25] — v2.8.0
+
+**Estado:** ✅ VERIFICADO MANUALMENTE
+
+**Suite de tests automatizados:** No disponible (proyecto sin `*_test.go`). Verificación funcional en sesión X11.
+
+**Cambios verificados:**
+
+| Escenario                                         | Resultado                                       |
+| ------------------------------------------------- | ----------------------------------------------- |
+| `Ctrl+Shift+G` sobre ventana tileada              | Ventana sale del tiling y queda flotante ✅     |
+| `Ctrl+Shift+G` sobre ventana flotante             | Ventana vuelve al tiling en layout activo ✅    |
+| Overlay `floating` al activar                     | Diagrama representativo centrado en pantalla ✅ |
+| Overlay `tiling` al desactivar                    | Layout actual con clientes dibujados ✅         |
+| Re-tile forzado tras unfloat                      | Ventana reintegrada sin reiniciar Cortile ✅    |
+| Múltiples ventanas: flotar una, resto se re-tilea | Redistributción correcta del espacio ✅         |
+| Compilación (`go build ./...`)                    | Sin errores ✅                                  |
+| Servicio systemd tras despliegue                  | Activo y estable ✅                             |
+
+**Método:** Compilación y despliegue con `./update-cortile.sh`, verificación visual en sesión X11.
+
+---
+
 ### [2026-02-25] — v2.7.1
 
 **Estado:** ✅ VERIFICADO MANUALMENTE

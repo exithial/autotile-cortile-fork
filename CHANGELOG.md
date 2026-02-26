@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0] - 2026-02-25
+
+### Added
+
+- **Toggle de ventana flotante**: Nuevo atajo `Control-Shift-G` que extrae la ventana activa del tiling y la deja flotante. Al presionar de nuevo, la ventana vuelve al layout activo
+- **Feedback visual del toggle flotante**: Al activar/desactivar el toggle se muestra un overlay representativo — un diagrama de ventana flotante sobre fondo tileado (`floating`) o el layout actual con todos los clientes (`tiling`)
+
+### Technical Details
+
+- `desktop/tracker.go`: Campo `FloatedWindows map[xproto.Window]bool` en `Tracker`. Método `ToggleFloat(w)` que agrega/elimina del mapa y fuerza `Update()` + `Tile()`. `isTrackable()` consulta el mapa para excluir ventanas flotantes sin depender de estados EWMH
+- `store/client.go`: Función helper `IsAbove(info)` para detectar `_NET_WM_STATE_ABOVE`
+- `input/action.go`: Nuevo `case "window_float_toggle"` en `ExecuteAction()`. Función `ToggleWindowFloat(tr)` que obtiene la ventana activa via `store.Windows.Active.Id` (funcional aunque no esté trackeada)
+- `ui/overlay.go`: Función `ShowWindowFloat(ws, floated)` con diseño visual representativo. Helper `drawFloating(cv)` dibuja dos columnas de fondo + rectángulo desplazado
+- `config.toml`: `window_float_toggle = "Control-Shift-g"`
+
 ## [2.7.1] - 2026-02-25
 
 ### Changed

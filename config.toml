@@ -207,6 +207,9 @@ screen_next = "Control-Shift-KP_9"
 # Move the active window to the previous screen (KP_7 = Num_7).
 screen_previous = "Control-Shift-KP_7"
 
+# Toggle the active window between floating (above all) and tiling.
+window_float_toggle = "Control-Shift-g"
+
 # Make the active window a master (KP_5 = Num_5).
 master_make = "Control-Shift-KP_5"
 
